@@ -1,0 +1,8 @@
+.private/
+build*/
+sdkconfig
+sdkconfig.old
+sdkconfig.defaults
+dependencies.lock
+managed_components/
+__pycache__/
