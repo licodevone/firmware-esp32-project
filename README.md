@@ -52,6 +52,10 @@ Gera .private/private_config.h e .private/bridge.json com permissões restritas 
 
 Wrapper usa por padrão ESP-IDF5.5.5 do EIM em C:/esp/v5.5.5/esp-idf e seu Python em C:/Espressif/tools/python/v5.5.5/venv. Chama o idf.py do SDK explicitamente, evitando outro idf.py no PATH. Aceita -IdfPath alternativo e isola build e sdkconfig por versão (build-5.5.5, por exemplo). Não reutiliza o build antigo5.5.3. Sem configuração privada, compila somente imagem bloqueada para conexão e recusa a etapa Gravar. Suporte6.1 ainda exige dependência gerenciada espressif/mqtt e validação própria.
 
+No VS Code, `Ctrl+Shift+B` executa a tarefa padrão **ESP32: Compilar com ESP-IDF 5.5.5 (EIM)**, usando esse wrapper. O diretório de build da extensão também aponta para `build-5.5.5`. Se o editor ainda exibir a pasta `build`, execute **Developer: Reload Window** e use a tarefa padrão ou o comando acima.
+
+Erro `Tool doesn't match supported version` com `esp-14.2.0_20251107` indica uso do compilador legado em `C:/Users/licod/.espressif`; este SDK exige `esp-14.2.0_20260121`, instalado em `C:/Espressif/tools`. Apagar o build sozinho não corrige um terminal com toolchain antigo. O wrapper ativa o ambiente correto e usa o build isolado; não é necessário excluir a configuração privada ou executar erase-flash.
+
 ## 3. Iniciar ponte no computador
 
 Em outro PowerShell nesta pasta:

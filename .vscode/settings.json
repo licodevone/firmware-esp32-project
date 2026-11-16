@@ -1,5 +1,12 @@
 {
     "idf.currentSetup": "C:\\esp\\v5.5.5\\esp-idf",
     "idf.port": "COM3",
-    "idf.flashType": "UART"
+    "idf.buildPath": "${workspaceFolder}/build-5.5.5",
+    "idf.flashType": "UART",
+    "clangd.path": "C:\\Espressif\\tools\\esp-clang\\esp-19.1.2_20250312\\esp-clang\\bin\\clangd.exe",
+    "clangd.arguments": [
+      "--background-index",
+      "--query-driver=**",
+      "--compile-commands-dir=d:\\projects\\my-project\\acmebr-projects\\xmqr.acmebr\\xmqr-platform\\firmware-esp32-project/build-5.5.5"
+    ]
 }
