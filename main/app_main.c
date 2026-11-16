@@ -20,6 +20,7 @@
 #include "config.example.h"
 #endif
 #include "dht22.h"
+#include "relay_control.h"
 
 static const char *TAG = "xmqr-dht22";
 static EventGroupHandle_t connected;
@@ -90,6 +91,7 @@ static void sensor_task(void *arg)
 
 void app_main(void)
 {
+    relay_control_start();
     if (!XMQR_CONFIGURED) {
         ESP_LOGE(TAG, "Build de verificacao: execute configurar.py e recompile antes de gravar");
         return;

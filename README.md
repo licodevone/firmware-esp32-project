@@ -12,6 +12,24 @@ Firmware usa MQTT5/mTLS + senha, mqtt.acmebr.net:52530, tópico de ensaio permit
 
 Dispositivo na plataforma: esp32-dht22-01 (d096d400-e0a4-11f1-830d-61590aed812b), atribuído a Customer A e visível pelo usuário Terra. Token deve ser copiado dessa identidade específica, não de dispositivo demo. O token é a autorização de destino; a ponte não consegue provar o id remoto apenas pela API de transporte HTTP.
 
+## Entrada digital e relé
+
+Com a alimentação desligada, conecte:
+
+| Função | Ligação |
+| --- | --- |
+| Entrada digital | GPIO18 a um contato seco (botão/chave); outro terminal a GND |
+| Comando do relé | GPIO19 ao IN de módulo de relé compatível com lógica de 3,3 V |
+| Referência | GND do módulo ao GND do ESP32, conforme especificação do módulo |
+
+Contato fechado liga o relé; aberto desliga. Não alterna por toque: um botão momentâneo mantém ligado somente enquanto pressionado. A entrada usa pull-up interno e filtro de estabilidade de 50 ms. O controle inicia antes da rede e funciona sem Wi-Fi, MQTT ou leitura DHT22. O GPIO4 do sensor permanece dedicado ao DHT22. Até o build sem credenciais executa o controle local do relé.
+
+Pinos e polaridades ficam em `main/relay_config.h`. O padrão é módulo ativo em nível baixo (`XMQR_RELAY_ACTIVE_LEVEL 0`); para módulo ativo em nível alto, altere para `1` e recompile. A saída é inicializada desligada; contato já fechado ao iniciar liga após estabilizar por 50 ms.
+
+Use módulo com driver de bobina e proteção apropriados; não conecte bobina diretamente ao GPIO. Alimente o módulo conforme sua especificação. Não aplique 5 V nem 12 V ao GPIO18/19: a entrada aceita contato seco para GND ou sinal compatível com 3,3 V. Para manter o relé desligado durante reset/boot, o circuito externo deve polarizar IN no nível inativo sem aplicar tensão acima de 3,3 V ao ESP32 (pull-up para módulo ativo baixo; pull-down para ativo alto). O firmware só controla o pino após iniciar.
+
+Após compilar e conferir a polaridade do seu módulo, grave com `.\Rodar.ps1 -Etapa Gravar -Porta COM3`. Valide inicialmente sem carga nos contatos do relé: aberto desligado, fechado ligado, retorno a aberto desligado, reinicialização e funcionamento sem rede. A implementação não foi ensaiada fisicamente com o módulo de relé.
+
 ## 1. Configuração privada no seu terminal
 
 Na pasta deste README:
